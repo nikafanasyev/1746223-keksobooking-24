@@ -1,24 +1,19 @@
-import {
-  getRandomPositiveFloat,
-  getRandomPositiveInteger
-} from './utils.js';
-
-function getRandomNumber(min, max) {
+const getRandomNumber = (min, max) => {
   if (min < 0 || max < 0 || min >= max) {
     return 'Ошибка! Введенное число меньше нуля, либо числа равны друг другу!';
   }
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-getRandomNumber(1, 10);
+//getRandomNumber(1, 10);
 
-function getRandomFloat(min, max, numberOfDecimal) {
+const getRandomPFloat = (min, max, numberOfDecimal) => {
   if (min < 0 || max < 0 || min >= max) {
     return 'Ошибка! Введенное число меньше нуля, либо числа равны друг другу!';
   }
   const floatNumber =  Math.random() * (max - min + 1) + min;
   return floatNumber.toFixed(numberOfDecimal);
 }
-getRandomFloat(1, 10, 3);
+//getRandomFloat(1, 10, 3);
 
 
 //4 модуль
@@ -67,15 +62,15 @@ const PHOTOS = [
 
 const createLocation =  () => {
   return {
-    lat: Number(getRandomPositiveFloat(35.65000, 35.70000, 5)),
-    lng: Number(getRandomPositiveFloat(139.70000, 139.80000, 5)),
+    lat: Number(getRandomFloat(35.65000, 35.70000, 5)),
+    lng: Number(getRandomFloat(139.70000, 139.80000, 5)),
   };
 };
 
 //Объект, описывающий автора
 
 const createAuthor = () => {
-  const randomAvatarIndex = getRandomPositiveInteger(0, AVATAR.length - 1);
+  const randomAvatarIndex = getRandomNumber(0, AVATAR.length - 1);
   return {
     avatar: 'img/avatars/user' + AVATAR[randomAvatarIndex] + '.png',
   };
@@ -84,34 +79,23 @@ const createAuthor = () => {
 //Создание предложения
 
 const createOffer = () => {
-  const randomTitleIndex = randomInteger(0, TITLE.length - 1);
-  const randomTypeIndex = getRandomPositiveInteger(0, TYPE.length -1);
-  const randomCheckInIndex = getRandomPositiveInteger(0, CHECKINOUT.length -1);
-  const randomCheckOutIndex = getRandomPositiveInteger(0, CHECKINOUT.length -1);
-  const randomFeaturesIndex = getRandomPositiveInteger(0, FEATURES.length -1);
-  const randomDescriptionIndex = getRandomPositiveInteger(0, DESCRIPTION.length -1);
-  const randomPhotosIndex = getRandomPositiveInteger(0, PHOTOS.length -1);
+  const randomTitleIndex = getRandomNumber(0, TITLE.length - 1);
+  const randomTypeIndex = getRandomNumber(0, TYPE.length -1);
+  const randomCheckInIndex = getRandomNumber(0, CHECKINOUT.length -1);
+  const randomCheckOutIndex = getRandomNumber(0, CHECKINOUT.length -1);
+  const randomDescriptionIndex = getRandomNumber(0, DESCRIPTION.length -1);
 
   return {
     title: TITLE[randomTitleIndex],
     address: createLocation() + '',
-    price: getRandomPositiveInteger(),
+    price: getRandomNumber(),
     type: TYPE[randomTypeIndex],
-    rooms: getRandomPositiveInteger(),
-    quests: getRandomPositiveInteger(),
+    rooms: getRandomNumber(),
+    quests: getRandomNumber(),
     checkin: CHECKINOUT[randomCheckInIndex],
     checkout: CHECKINOUT[randomCheckOutIndex],
-    features: Array.from({length: getRandomPositiveInteger(1, FEATURES.length)}, FEATURES[0, getRandomPositiveInteger(1, FEATURES.length - 1)]),
+    features: Array.from({length: getRandomNumber(1, FEATURES.length)}, FEATURES[0, getRandomNumber(1, FEATURES.length - 1)]),
     desctiption: DESCRIPTION[randomDescriptionIndex],
-    photos: Array.from({length: getRandomPositiveInteger(1, PHOTOS.length)}, PHOTOS[0, getRandomPositiveInteger(1, PHOTOS.length - 1)]),
+    photos: Array.from({length: getRandomNumber(1, PHOTOS.length)}, PHOTOS[0, getRandomNumber(1, PHOTOS.length - 1)]),
   };
 };
-
-const post = () => {
-  return {
-    author: createAuthor(),
-    offer: createOffer(),
-    location: createLocation(),
-  };
-};
-
